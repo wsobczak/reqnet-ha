@@ -1,0 +1,48 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Set up reQnet Recuperator",
+        "description": "Enter the recuperator's IP address and your MQTT broker credentials. The integration will automatically configure the device and discover its MAC address.",
+        "data": {
+          "host":          "Recuperator IP address",
+          "mqtt_broker":   "MQTT broker address",
+          "mqtt_port":     "MQTT port",
+          "mqtt_user":     "MQTT username (optional)",
+          "mqtt_password": "MQTT password (optional)"
+        },
+        "data_description": {
+          "host":        "e.g. 192.168.1.50",
+          "mqtt_broker": "Usually the IP address of your Home Assistant server"
+        }
+      },
+      "discover_mac": {
+        "title": "Discovering device…",
+        "description": "Waiting for the recuperator to connect to the MQTT broker. This may take up to 30 seconds."
+      },
+      "confirm": {
+        "title": "Device found!",
+        "description": "Recuperator detected with MAC address **{mac}**.\n\nClick **Submit** to complete setup."
+      },
+      "manual_mac": {
+        "title": "Enter MAC address manually",
+        "description": "No MQTT message received within {timeout}s from broker {broker}:{port}.\n\nEnsure the recuperator can reach the broker, then enter its MAC address (found on the device label or in the reQnet app).",
+        "data": {
+          "mqtt_topic": "MAC address"
+        },
+        "data_description": {
+          "mqtt_topic": "Format: A8:48:FA:FA:0B:E8"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect":      "Cannot connect to the recuperator. Check IP address and network.",
+      "broker_config_failed": "Failed to send MQTT broker configuration to the device. Check HA logs.",
+      "unknown":             "Unexpected error — check HA logs.",
+      "invalid_mac":         "Invalid MAC address format. Use: XX:XX:XX:XX:XX:XX"
+    },
+    "abort": {
+      "already_configured": "This device is already configured."
+    }
+  }
+}

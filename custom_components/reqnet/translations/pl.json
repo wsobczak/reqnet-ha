@@ -1,0 +1,124 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Konfiguracja rekuperatora reQnet",
+        "description": "Podaj adres IP rekuperatora i dane brokera MQTT. Integracja automatycznie skonfiguruje urządzenie i wykryje jego adres MAC.",
+        "data": {
+          "host":          "Adres IP rekuperatora",
+          "mqtt_broker":   "Adres brokera MQTT",
+          "mqtt_port":     "Port MQTT",
+          "mqtt_user":     "Użytkownik MQTT (opcjonalnie)",
+          "mqtt_password": "Hasło MQTT (opcjonalnie)"
+        },
+        "data_description": {
+          "host":        "np. 192.168.1.50",
+          "mqtt_broker": "Zazwyczaj adres IP Home Assistant"
+        }
+      },
+      "discover_mac": {
+        "title": "Wykrywanie urządzenia…",
+        "description": "Oczekiwanie na połączenie rekuperatora z brokerem MQTT. Może to potrwać do 30 sekund."
+      },
+      "confirm": {
+        "title": "Urządzenie znalezione!",
+        "description": "Znaleziono rekuperator o adresie MAC **{mac}**.\n\nKliknij **Zatwierdź** aby zakończyć konfigurację."
+      },
+      "manual_mac": {
+        "title": "Ręczne podanie adresu MAC",
+        "description": "Nie otrzymano wiadomości MQTT w ciągu {timeout}s od brokera {broker}:{port}.\n\nUpewnij się że rekuperator ma dostęp do brokera, następnie podaj adres MAC (naklejka na urządzeniu lub aplikacja reQnet).",
+        "data": {
+          "mqtt_topic": "Adres MAC"
+        },
+        "data_description": {
+          "mqtt_topic": "Format: A8:48:FA:FA:0B:E8"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect":       "Nie można połączyć się z rekuperatorem. Sprawdź adres IP i sieć.",
+      "broker_config_failed": "Nie udało się wysłać konfiguracji brokera MQTT do urządzenia. Sprawdź logi HA.",
+      "unknown":              "Nieoczekiwany błąd — sprawdź logi HA.",
+      "invalid_mac":          "Nieprawidłowy format MAC. Użyj: XX:XX:XX:XX:XX:XX"
+    },
+    "abort": {
+      "already_configured": "To urządzenie jest już skonfigurowane."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "temp_supply":    { "name": "Temperatura nawiewu" },
+      "temp_extract":   { "name": "Temperatura wywiewu" },
+      "temp_intake":    { "name": "Temperatura zewnętrzna" },
+      "temp_exhaust":   { "name": "Temperatura wyrzutu" },
+      "temp_heater":    { "name": "Temperatura nagrzewnicy" },
+      "temp_gwc":       { "name": "Temperatura GWC" },
+      "comfort_temp":   { "name": "Temperatura komfortu" },
+      "humidity":       { "name": "Wilgotność" },
+      "co2":            { "name": "Stężenie CO₂" },
+      "airflow_supply": { "name": "Przepływ nawiewu" },
+      "airflow_extract":{ "name": "Przepływ wywiewu" },
+      "fan_pct":        { "name": "Wentylator" },
+      "fan_supply_rpm": { "name": "Wentylator nawiewny — obroty" },
+      "fan_extract_rpm":{ "name": "Wentylator wywiewny — obroty" },
+      "heat_recovery":  { "name": "Sprawność odzysku ciepła" },
+      "filter_days":    { "name": "Dni do wymiany filtrów" },
+      "wifi_signal":    { "name": "Sygnał WiFi" },
+      "work_mode": {
+        "name": "Tryb pracy",
+        "state": {
+          "standby":      "Czuwanie",
+          "auto":         "Inteligentny",
+          "manual":       "Ręczny",
+          "schedule":     "Harmonogram",
+          "airing":       "Wietrzenie",
+          "cleaning":     "Oczyszczanie",
+          "heating":      "Grzanie",
+          "cooling":      "Chłodzenie",
+          "fast_heating": "Szybkie grzanie",
+          "fast_cooling": "Szybkie chłodzenie",
+          "fireplace":    "Kominek",
+          "holiday":      "Urlop",
+          "unknown":      "Nieznany"
+        }
+      }
+    },
+    "binary_sensor": {
+      "filter_alarm": { "name": "Alarm filtrów" },
+      "bypass_open":  { "name": "Bypass otwarty" },
+      "error_code":   { "name": "Błąd urządzenia" },
+      "mqtt_ok":      { "name": "MQTT połączone" }
+    },
+    "switch": {
+      "airing":       { "name": "Wietrzenie" },
+      "cleaning":     { "name": "Oczyszczanie" },
+      "heating":      { "name": "Grzanie" },
+      "cooling":      { "name": "Chłodzenie" },
+      "fast_heating": { "name": "Szybkie grzanie" },
+      "fast_cooling": { "name": "Szybkie chłodzenie" },
+      "fireplace":    { "name": "Kominek" },
+      "holiday":      { "name": "Urlop" },
+      "schedule":     { "name": "Harmonogram" },
+      "gwc_relay":    { "name": "Nagrzewnica GWC" }
+    },
+    "select": {
+      "bypass_mode": {
+        "name": "Tryb bypass",
+        "state": {
+          "auto":   "Automatyczny",
+          "open":   "Otwarty",
+          "closed": "Zamknięty"
+        }
+      }
+    },
+    "number": {
+      "fan_supply_preset":  { "name": "Preset ręczny — nawiew" },
+      "fan_extract_preset": { "name": "Preset ręczny — wywiew" },
+      "airing_duration":    { "name": "Czas wietrzenia" }
+    },
+    "button": {
+      "reconfigure_mqtt": { "name": "Skonfiguruj broker MQTT" },
+      "replace_filters":  { "name": "Resetuj licznik filtrów" }
+    }
+  }
+}
